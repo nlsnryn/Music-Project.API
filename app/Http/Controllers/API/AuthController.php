@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LogoutRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         try {
-            $request->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|min:8'
-            ]);
 
             $user = User::create([
                 'first_name' => $request->input('first_name'),
@@ -40,14 +36,9 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|min:8'
-            ]);
-
             $user = User::where('email', '=', $request->input('email'))->firstOrFail();
 
             if (Hash::check($request->input('password'), $user->password)) {
@@ -71,7 +62,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout(LogoutRequest $request)
     {
         try {
             $user = User::findOrFail($request->input('user_id'));
