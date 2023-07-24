@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
-// use App\Services\ImageServices;
+use App\Services\ImageServices;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateUserRequest;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -46,18 +46,18 @@ class UserController extends Controller
                 //     $request->top
                 // );
                 // $imageResize->save(public_path($file_name));
-                $user->image = 'postman';
+                // $user->image = $file_name;
+                (new ImageServices)->updateImage($user, $request, '/images/users/', 'update');
             }
 
-            // $user->first_name = $request->first_name;
-            // $user->last_name = $request->last_name;
-            // $user->location = $request->location;
-            // $user->description = $request->description;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->location = $request->location;
+            $user->description = $request->description;
 
             $user->save();
 
-            return response()->json($request->hasFile('image'));
-            // return response()->json('User details updated!', 200);
+            return response()->json('User details updated!', 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Something went wrong in UserController.update',
