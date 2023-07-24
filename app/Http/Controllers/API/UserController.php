@@ -36,17 +36,6 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             if ($request->hasFile('image')) {
-                // $image = $request->file('image');
-                // $file_name = time() . '.' . $image->extension();
-                // $imageResize = Image::make($image->getRealPath());
-                // $imageResize = $imageResize->crop(
-                //     $request->width,
-                //     $request->height,
-                //     $request->left,
-                //     $request->top
-                // );
-                // $imageResize->save(public_path($file_name));
-                // $user->image = $file_name;
                 (new ImageServices)->updateImage($user, $request, '/images/users/', 'update');
             }
 

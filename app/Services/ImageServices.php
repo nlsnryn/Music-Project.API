@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use ImageIntervention;
+use Image;
 
 class ImageServices
 {
   public function updateImage($model, $request, $path, $method)
   {
-    $image = ImageIntervention::make($request->file('image'));
+    $image = Image::class::make($request->file('image'));
 
     if (!empty($model->image)) {
       $currentImage = public_path() . $path . $model->image;
