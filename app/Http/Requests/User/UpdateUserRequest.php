@@ -16,6 +16,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
+            'description' => 'max:255|min:3',
         ];
     }
 }
