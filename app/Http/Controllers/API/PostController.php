@@ -58,12 +58,12 @@ class PostController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $post = Post::with('user')->findOrFail($id);
 
-            return response()->json(['post' => $post], 200);
+            return response()->json($post, 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Something went wrong in PostController.show',
@@ -103,7 +103,7 @@ class PostController extends Controller
 
             if (!empty($post->image)) {
                 $currentImage = public_path() . '/images/posts/' . $post->image;
-                dd($currentImage);
+
                 if (file_exists($currentImage)) {
                     unlink($currentImage);
                 }

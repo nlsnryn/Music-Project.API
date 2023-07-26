@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->text('image');
-            $table->text('title');
-            $table->text('description');
-            $table->text('location');
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('location')->nullable();
             $table->timestamps();
         });
     }

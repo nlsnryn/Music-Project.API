@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\PostByUserController;
 use App\Http\Controllers\API\SongController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\YoutubeController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\API\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,4 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/posts', [PostController::class, 'store']);
     Route::put('/posts/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+
+    //PostByUser
+    Route::get('users/{user_id}/posts', [PostByUserController::class, 'show']);
 });
