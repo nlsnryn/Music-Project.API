@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Song;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Song\StoreSongRequest;
 
@@ -12,19 +11,26 @@ class SongController extends Controller
 {
     public function index(int $user_id)
     {
-        $songs = [];
-        $songs_by_user = Song::where('user_id', $user_id)->get();
-        $user = User::findOrFail($user_id);
+        try {
+            $songs = [];
+            $songs_by_user = Song::where('user_id', $user_id)->get();
+            $user = User::findOrFail($user_id);
 
-        foreach ($songs_by_user as $song) {
-            array_push($songs, $song);
+            foreach ($songs_by_user as $song) {
+                array_push($songs, $song);
+            }
+
+            return response()->json([
+                'artist_id' => $user->id,
+                'artist_name' => $user->first_name . " " . $user->last_name,
+                'songs' => $songs
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong in SongController.index',
+                'error' => $e->getMessage(),
+            ]);
         }
-
-        return response()->json([
-            'artist_id' => $user->id,
-            'artist_name' => $user->first_name . " " . $user->last_name,
-            'songs' => $songs
-        ], 200);
     }
     public function store(StoreSongRequest $request)
     {
