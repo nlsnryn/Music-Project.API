@@ -83,7 +83,7 @@ class SongController extends Controller
             return response()->json('Song deleted', 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Something went wrong in SongController.store',
+                'message' => 'Something went wrong in SongController.destroy',
                 'error' => $e->getMessage(),
             ]);
         }
