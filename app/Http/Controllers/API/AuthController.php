@@ -52,7 +52,7 @@ class AuthController extends Controller
             };
 
             return response()->json([
-                'message' => 'Something went wrong in login.'
+                'message' => 'Something went wrong in AuthController.login'
             ]);
         } catch (\Exception $e) {
             return response()->json([

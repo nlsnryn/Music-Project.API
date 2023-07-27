@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         try {
-            $postsPerPage = 10;
+            $postsPerPage = 1;
             $posts = Post::with('user')
                 ->orderBy('updated_at', 'desc')
                 ->simplePaginate($postsPerPage);
